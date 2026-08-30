@@ -1,0 +1,407 @@
+/* ==================== acara & acara SECTION ==================== */
+.acara-makanan-section {
+  background-color: #fffaec;
+  padding: 30px 0 60px 0;
+  width: 100%;
+}
+
+/* 1. acara acara HEADER & CAROUSEL */
+.acara-title {
+  font-family: "Gayathri", sans-serif;
+  font-size: 30px;
+  color: #7a1810;
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.acara-carousel-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 0 20px 0;
+}
+
+.acara-carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.acara-carousel {
+  display: flex;
+  gap: 16px;
+  padding: 0 20px;
+}
+
+.acara-card {
+  position: relative;
+  width: 280px;
+  height: 320px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  scroll-snap-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.acara-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay Gelap di atas Gambar acara */
+.acara-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.acara-name {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.acara-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.acara-price {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffda79;
+  margin-top: 4px;
+}
+
+/* 2. acara CONTROLS (CTA & TYPE FILTER) */
+.acara-controls-wrapper {
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-full-acara {
+  width: 100%;
+  height: 44px;
+  background-color: #7a1810;
+  color: #ffffff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Gayathri", sans-serif;
+  font-size: 22px;
+  box-shadow: 0 4px 8px rgba(122, 24, 16, 0.2);
+}
+
+.type-filter-tabs {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.tab-btn {
+  flex: 1;
+  height: 38px;
+  border-radius: 6px;
+  font-family: "Gayathri", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background-color: #bc9464;
+  color: #ffffff;
+  border: none;
+}
+
+.tab-btn.outline {
+  background-color: transparent;
+  color: #bc9464;
+  border: 1px solid #bc9464;
+}
+
+/* 3. SAJIAN CHIPS / HORIZONTAL NAV */
+.sajian-chips-wrapper {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.sajian-chips-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-item {
+  padding: 6px 16px;
+  background-color: #bc9464;
+  color: #ffffff;
+  border-radius: 50px;
+  white-space: nowrap;
+  font-family: "Gayathri", sans-serif;
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.chip-item.active {
+  opacity: 1;
+  font-weight: bold;
+}
+
+/* 4. KATALOG GRID */
+.katalog-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sajian-title {
+  font-family: "Gayathri", sans-serif;
+  font-size: 26px;
+  color: #bc9464;
+  margin: 0 0 12px 0;
+}
+
+.acara-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Default HP: 2 Kolom */
+  gap: 14px;
+}
+
+.acara-card {
+  position: relative;
+  height: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.acara-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.acara-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.acara-name {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.acara-price {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: #ffda79;
+}
+
+/* Helper class untuk menyembunyikan elemen */
+.is-hidden {
+  display: none !important;
+}
+
+/* Styling Dasar Tombol Filter */
+.tab-btn {
+  flex: 1;
+  height: 40px;
+  border-radius: 6px;
+  font-family: "Gayathri", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  /* Transisi halus saat warna berubah */
+  transition: all 0.25s ease-in-out; 
+  outline: none;
+}
+
+/* State: Aktif (Terpilih) */
+.tab-btn.active {
+  background-color: #bc9464;
+  color: #ffffff;
+  border: 1px solid #bc9464;
+  box-shadow: 0 3px 6px rgba(188, 148, 100, 0.3);
+}
+
+/* State: Tidak Aktif (Bisa Diklik) */
+.tab-btn.outline {
+  background-color: transparent;
+  color: #bc9464;
+  border: 1px solid #bc9464;
+  box-shadow: none;
+}
+
+/* Efek Saat Kursor Diarahkan / Diklik (Hover & Active Click Effect) */
+.tab-btn.outline:hover {
+  background-color: rgba(188, 148, 100, 0.1); /* Tipis-tipis saat di-hover */
+}
+
+.tab-btn:active {
+  transform: scale(0.97); /* Efek tombol sedikit membal ke dalam saat ditekan */
+}
+
+/* RESPONSIVE LAYOUT UNTUK TABLET & DESKTOP */
+@media (min-width: 600px) {
+  .acara-card {
+    width: 340px;
+    height: 360px;
+  }
+  
+  .acara-grid {
+    grid-template-columns: repeat(3, 1fr); /* Tablet: 3 Kolom */
+  }
+}
+
+@media (min-width: 900px) {
+  .acara-grid {
+    grid-template-columns: repeat(4, 1fr); /* Desktop: 4 Kolom */
+  }
+}
+
+/* ==================== MODAL OVERLAY & POPUP ==================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65); /* Effect latar belakang gelap/blur */
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Modal Card Container */
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px; /* Ukuran pas untuk HP & Tablet */
+  background-color: #fffaec;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animation Pop-in */
+@keyframes popIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Tombol Close (X) */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Image Detail */
+.modal-image-wrapper {
+  width: 100%;
+  height: 220px;
+  background-color: #e5e5e5;
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Body Info */
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-title {
+  font-family: "Gayathri", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #7a1810;
+  margin: 0;
+}
+
+.modal-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #4a4a4a;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Price Badge */
+.modal-price-wrapper {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modal-price-badge {
+  background-color: #bc9464;
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
