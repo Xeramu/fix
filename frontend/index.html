@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Rummi Kopi lan Tresna</title>
-    
-    <!-- Google Font: Gayathri -->
+
+    <!-- GOOGLE FONT GAYATHRI -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gayathri:wght@400;700&display=swap" rel="stylesheet">
@@ -24,15 +24,15 @@
   </head>
   <body>
 
-    <!-- ==================== HEADER (FLOATING) ==================== -->
+    <!-- HEADER FLOATING -->
     <header class="header">
       <div class="header-container">
-        <!-- Logo Rummi di Kiri -->
+        <!-- LOGO RUMMI SEBELAH KIRI -->
         <a href="#" class="logo-link">
           <img class="logo-rummi" src="/assets/img/header/Mask group.png" alt="Rummi Kopi lan Tresna" />
         </a>
 
-        <!-- Burger Menu di Kanan -->
+        <!-- MENU BURGER SIDEBAR DI KANAN -->
         <button class="burger-option" aria-label="Toggle Navigation">
           <span class="line"></span>
           <span class="line"></span>
@@ -124,17 +124,17 @@
 
     </section>
 
+    <!-- SCRIPT SIDEBAR -->
     <script>
-    /* ==================== SCRIPTS SIDEBAR ==================== */
     document.addEventListener('DOMContentLoaded', () => {
       const burgerBtn = document.querySelector('.burger-option');
       const btnCloseSidebar = document.getElementById('btnCloseSidebar');
       const sidebarNav = document.getElementById('sidebarNav');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-      // --- FUNGSI UTAMA SIDEBAR (OPEN/CLOSE) --- //
+      // FUNGSI UTAMA OPEN/CLOSE
       
-      // Fungsi Membuka Sidebar
+      // FUNGSI OPEN SIDEBAR
       function openSidebar() {
         sidebarNav.classList.add('active');
         sidebarOverlay.classList.add('active');
@@ -142,7 +142,7 @@
         document.body.style.overflow = 'hidden'; // Kunci scroll halaman utama
       }
 
-      // Fungsi Menutup Sidebar
+      // FUNGSI CLOSE SIDE BAR
       function closeSidebar() {
         sidebarNav.classList.remove('active');
         sidebarOverlay.classList.remove('active');
