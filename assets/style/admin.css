@@ -15,7 +15,7 @@
 .sidebar{
     position: fixed;
     top: 0;
-    left: 0px; /* Sembunyikan sidebar ke kanan (lebar Figma: 287px) */
+    left: 0; /* Sembunyikan sidebar ke kanan (lebar Figma: 287px) */
     width: 287px;
     height: 100vh;
     background-color: #51110b;
