@@ -74,7 +74,7 @@
             <ul class="dropdown-menu">
               <li><a href="#menu-makanan-section" class="nav-item sub-item">Featured Menu</a></li>
 
-              <li class="has-sub-dropdown active">
+              <li class="has-sub-dropdown active" data-menu-type="makanan">
                 <a href="#" class="nav-item sub-item sub-dropdown-toggle">
                   <span>Makanan</span>
                   <svg class="icon-arrow-sub" viewBox="0 0 24 24">
@@ -96,7 +96,7 @@
                 </ul>
               </li>
 
-              <li class="has-sub-dropdown">
+              <li class="has-sub-dropdown" data-menu-type="minuman">
                 <a href="#" class="nav-item sub-item sub-dropdown-toggle">
                   <span>Minuman</span>
                   <svg class="icon-arrow-sub" viewBox="0 0 24 24">
@@ -104,16 +104,16 @@
                   </svg>
                 </a>
                 <ul class="sub-dropdown-menu">
-                  <li><a href="#kopi" class="nav-item min-item">Seduhan Kopi</a></li>
-                  <li><a href="#teman-kopi" class="nav-item min-item">Teman Kopi</a></li>
-                  <li><a href="#non-kopi" class="nav-item min-item">Seduhan Non Kopi</a></li>
-                  <li><a href="#penutup" class="nav-item min-item">Kudapan Penutup</a></li>
-                  <li><a href="#nusantara" class="nav-item min-item">Refreshment Nusantara</a></li>
-                  <li><a href="#racikan" class="nav-item min-item">Racikan Lokal</a></li>
-                  <li><a href="#jus" class="nav-item min-item">Jus Buah</a></li>
+                  <li><a href="#seduhan-kopi" class="nav-item min-item">Seduhan Kopi</a></li>
+                  <li><a href="#non-kopi" class="nav-item min-item">Non Kopi</a></li>
+                  <li><a href="#refreshment-nusantara" class="nav-item min-item">Refreshment Nusantara</a></li>
+                  <li><a href="#jus-buah" class="nav-item min-item">Jus Buah</a></li>
+                  <li><a href="#racikan-lokal" class="nav-item min-item">Racikan Lokal</a></li>
                   <li><a href="#teh-jeruk" class="nav-item min-item">Teh & Jeruk</a></li>
-                  <li><a href="#rekomendasi" class="nav-item min-item">Rekomendasi Warga</a></li>
-                  <li><a href="#addons" class="nav-item min-item">Add ons</a></li>
+                  <li><a href="#rekomendasi-warga" class="nav-item min-item">Rekomendasi Warga</a></li>
+                  <li><a href="#add-ons" class="nav-item min-item">Add Ons</a></li>
+                  <li><a href="#teman-kopi" class="nav-item min-item">Teman Kopi</a></li>
+                  <li><a href="#kudapan-penutup" class="nav-item min-item">Kudapan Penutup</a></li>
                 </ul>
               </li>
             </ul>
@@ -222,6 +222,27 @@
             currentParent.classList.remove('active');
           } else {
             currentParent.classList.add('active');
+          }
+        });
+      });
+
+      // Sinkronkan tab Makanan/Minuman saat link kategori di sidebar diklik,
+      // supaya section tujuan tidak "hilang" karena tab-nya lagi disembunyikan (is-hidden)
+      const menuCategoryLinks = document.querySelectorAll('.sidebar .sub-dropdown-menu .min-item');
+      menuCategoryLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          const parentType = link.closest('[data-menu-type]');
+          if (!parentType) return;
+
+          const type = parentType.dataset.menuType; // 'makanan' atau 'minuman'
+          const targetBtn = document.querySelector(
+            `.type-filter-tabs .tab-btn[onclick*="'${type}'"]`
+          );
+
+          // switchMenuType() didefinisikan di script menu (dipanggil di sini
+          // karena sudah ter-hoist & DOMContentLoaded jalan setelah semua script terparsing)
+          if (targetBtn && typeof switchMenuType === 'function') {
+            switchMenuType(type, targetBtn);
           }
         });
       });
@@ -1192,7 +1213,14 @@
         <div class="sajian-chips-wrapper">
           <a href="#seduhan-kopi" class="chip-item active">Seduhan Kopi</a> <!-- DINAMIS -->
           <a href="#non-kopi" class="chip-item">Non Kopi</a> <!-- DINAMIS -->
-          <a href="#refreshments" class="chip-item">Refreshments</a> <!-- DINAMIS -->
+          <a href="#refreshment-nusantara" class="chip-item">Refreshment Nusantara</a> <!-- DINAMIS -->
+          <a href="#jus-buah" class="chip-item">Jus Buah</a> <!-- DINAMIS -->
+          <a href="#racikan-lokal" class="chip-item">Racikan Lokal</a> <!-- DINAMIS -->
+          <a href="#teh-jeruk" class="chip-item">Teh & Jeruk</a> <!-- DINAMIS -->
+          <a href="#rekomendasi-warga" class="chip-item">Rekomendasi Warga</a> <!-- DINAMIS -->
+          <a href="#add-ons" class="chip-item">Add Ons</a> <!-- DINAMIS -->
+          <a href="#teman-kopi" class="chip-item">Teman Kopi</a> <!-- DINAMIS -->
+          <a href="#kudapan-penutup" class="chip-item">Kudapan Penutup</a> <!-- DINAMIS -->
         </div>
 
         <!-- LIST KATALOG MINUMAN -->
@@ -1433,7 +1461,7 @@
 
           <!-- SAJIAN GROUP 5 (Racikan Lokal) -->
           <div class="sajian-group" id="racikan-lokal">
-            <h3 class="sajian-title">Jus Buah</h3>
+            <h3 class="sajian-title">Racikan Lokal</h3>
             <div class="menu-grid">
 
               <div class="menu-card" onclick="openMenuModal(this)" data-name="Djamoe'ne Simbah" data-desc="deskripsi Djamoe'ne Simbah" data-price="Rp 31.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
@@ -1503,71 +1531,300 @@
           </div>
 
           <!-- SAJIAN GROUP 6 (Teh & Jeruk) -->
-          <div class="sajian-group" id="racikan-lokal">
+          <div class="sajian-group" id="teh-jeruk">
             <h3 class="sajian-title">Teh & Jeruk</h3>
             <div class="menu-grid">
 
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Pandan Wangi" data-desc="deskripsi Pandan Wangi" data-price="Rp 35.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Pandan Wangi" 
+              data-desc="deskripsi Djamoe'ne Simbah" 
+              data-price="Rp 35.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
                 <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
                 <div class="menu-card-overlay">
                   <span class="menu-name">Pandan Wangi</span>
                   <span class="menu-price">Rp 35.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Javanese Jasmine" data-desc="deskripsi Javanese Jasmine" data-price="Rp 35.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Javanese Jasmin" 
+              data-desc="deskripsi Javanese Jasmin" 
+              data-price="Rp 35.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
                 <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Javanese Jasmine</span>
+                  <span class="menu-name">Javanese Jasmin</span>
                   <span class="menu-price">Rp 35.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Chamomile" data-desc="deskripsi Chamomile" data-price="Rp 37.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Chamomile" 
+              data-desc="deskripsi Chamomile" 
+              data-price="Rp 37.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
                 <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
                 <div class="menu-card-overlay">
                   <span class="menu-name">Chamomile</span>
                   <span class="menu-price">Rp 37.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Kunyit Aren*" data-desc="deskripsi Kunyit Aren* Pilihan Panas/ Dingin" data-price="Rp 25.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Teh Solo Regular*" 
+              data-desc="deskripsi Teh Solo Regular* Pilihan Panas/ Dingin" 
+              data-price="Rp 25.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
                 <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Kunyit Aren*</span>
-                  <span class="menu-price">Rp 25.000</span>
+                  <span class="menu-name">Teh Solo Regular*</span>
+                  <span class="menu-price">Rp 19.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Kencur Madu*" data-desc="deskripsi Kencur Madu* Pilihan Panas/ Dingin" data-price="Rp 39.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
-                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Teh Solo Jumbo*" 
+              data-desc="deskripsi Teh Solo Jumbo* Pilihan Panas/ Dingin" 
+              data-price="Rp 23.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Teh Solo Jumbo" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Jambu</span>
-                  <span class="menu-price">Rp 39.000</span>
+                  <span class="menu-name">Teh Solo Jumbo*</span>
+                  <span class="menu-price">Rp 23.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Rujak Degan" data-desc="deskripsi Rujak Degan" data-price="Rp 31.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
-                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Teh Kampul Regular*" 
+              data-desc="deskripsi Teh Kampul Regular*" 
+              data-price="Rp 23.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Teh Kampul Regular" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Rujak Degan</span>
-                  <span class="menu-price">Rp 31.000</span>
+                  <span class="menu-name">Teh Kampul Regular*</span>
+                  <span class="menu-price">Rp 23.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Es Marem Cincau" data-desc="deskripsi Es Marem Cincau" data-price="Rp 35.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
-                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Teh Kampul Jumbo*" 
+              data-desc="deskripsi Teh Kampul Jumbo* Pilihan panas/ dingin" 
+              data-price="Rp 35.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Teh Kampul Jumbo*" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Es Marem Cincau</span>
+                  <span class="menu-name">Teh Kampul Jumbo*</span>
                   <span class="menu-price">Rp 35.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Es Dawet Semarangan" data-desc="deskripsi Es Dawet Semarangan" data-price="Rp 35.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
-                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Es teh Leci" 
+              data-desc="deskripsi Es teh Leci" 
+              data-price="Rp 35.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Es teh Leci" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Es Dawet Semarangan</span>
+                  <span class="menu-name">Es teh Leci</span>
                   <span class="menu-price">Rp 35.000</span>
                 </div>
               </div>
-              <div class="menu-card" onclick="openMenuModal(this)" data-name="Es Kopyor Aren" data-desc="deskripsi Es Kopyor Aren" data-price="Rp 41.000" data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
-                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Kopi Susu Lan Tresna" class="menu-card-img" />
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Teh Tawar Regular*" 
+              data-desc="deskripsi Teh Tawar Regular* Pilihan panas/dingin" 
+              data-price="Rp 9.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Teh Tawar Regular" class="menu-card-img" />
                 <div class="menu-card-overlay">
-                  <span class="menu-name">Es Kopyor Aren</span>
+                  <span class="menu-name">Teh Tawar Regular*</span>
+                  <span class="menu-price">Rp 9.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Teh Tawar Jumbo*" 
+              data-desc="deskripsi Teh Tawar Jumbo* Pilihan panas/dingin" 
+              data-price="Rp 13.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Teh Tawar Jumbo" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Teh Tawar Jumbo*</span>
+                  <span class="menu-price">Rp 13.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Jeruk*" 
+              data-desc="deskripsi Jeruk* Pilihan panas/dingin" 
+              data-price="Rp 29.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Jeruk" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Jeruk*</span>
+                  <span class="menu-price">Rp 29.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Jeruk Nipis*" 
+              data-desc="deskripsi Jeruk Nipis* Pilihan panas/dingin" 
+              data-price="Rp 29.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Jeruk Nipis" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Jeruk Nipis*</span>
+                  <span class="menu-price">Rp 29.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Jeruk Kelapa*" 
+              data-desc="deskripsi Jeruk Kelapa* Pilihan panas/dingin" 
+              data-price="Rp 35.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Jeruk Kelapa" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Jeruk Kelapa*</span>
+                  <span class="menu-price">Rp 35.000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAJIAN GROUP 7 (Rekomendasi Warga) -->
+          <div class="sajian-group" id="rekomendasi-warga">
+            <h3 class="sajian-title">Rekomendasi Warga</h3>
+            <div class="menu-grid">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Choco Vanilla" 
+              data-desc="deskripsi Choco Vanilla" 
+              data-price="Rp 41.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Choco Vanilla" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Choco Vanilla</span>
                   <span class="menu-price">Rp 41.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Banana Choco Caramel" 
+              data-desc="deskripsi Banana Choco Caramel" 
+              data-price="Rp 41.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Banana Choco Caramel" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Banana Choco Caramel</span>
+                  <span class="menu-price">Rp 41.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Nutella Cookies" 
+              data-desc="deskripsi Nutella Cookies" 
+              data-price="Rp 43.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Nutella Cookies" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Nutella Cookies</span>
+                  <span class="menu-price">Rp 43.000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAJIAN GROUP 8 (Add Ons) -->
+          <div class="sajian-group" id="add-ons">
+            <h3 class="sajian-title">Add Ons</h3>
+            <div class="menu-grid">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Extra Shot" 
+              data-desc="deskripsi Extra Shot" 
+              data-price="Rp 15.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Extra Shot" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Extra Shot</span>
+                  <span class="menu-price">Rp 15.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Extra Flavor" 
+              data-desc="deskripsi Extra Flavor. Aren/ Vanila/ Pandan" 
+              data-price="Rp 13.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Extra Flavor" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Extra Flavor</span>
+                  <span class="menu-price">Rp 13.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Oat Milk" 
+              data-desc="deskripsi Oat Milk" 
+              data-price="Rp 15.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Oat Milk" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Oat Milk</span>
+                  <span class="menu-price">Rp 15.000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAJIAN GROUP 9 (Temen Kopi) -->
+          <div class="sajian-group" id="teman-kopi">
+            <h3 class="sajian-title">Temen Kopi</h3>
+            <div class="menu-grid">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Croffle" 
+              data-desc="deskripsi Croffle. Add on coklat (+ Rp. 15.000) / keju (+ Rp. 15.000)/ eskrim (+ Rp. 15.000)" 
+              data-price="Rp 37.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Croffle" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Croffle</span>
+                  <span class="menu-price">Rp 37.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Roti Bakar" 
+              data-desc="deskripsi Roti Bakar. Add on coklat (+ Rp. 15.000) / keju (+ Rp. 15.000)/ eskrim (+ Rp. 15.000)" 
+              data-price="Rp 35.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Extra Flavor" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Roti Bakar</span>
+                  <span class="menu-price">Rp 35.000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAJIAN GROUP 10 (Kudapan Penutup) -->
+          <div class="sajian-group" id="kudapan-penutup">
+            <h3 class="sajian-title">Kudapan Penutup</h3>
+            <div class="menu-grid">
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Klepon Cake" 
+              data-desc="deskripsi Klepon Cake" 
+              data-price="Rp 43.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Klepon Cake" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Klepon Cake</span>
+                  <span class="menu-price">Rp 37.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Triple Choco Cake" 
+              data-desc="deskripsi Triple Choco Cake" 
+              data-price="Rp 43.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Triple Choco Cake" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Triple Choco Cake</span>
+                  <span class="menu-price">Rp 43.000</span>
+                </div>
+              </div>
+              <div class="menu-card" onclick="openMenuModal(this)" 
+              data-name="Es Krim" 
+              data-desc="deskripsi Es Krim. Vanilla/ Cokelat/ Strawberry" 
+              data-price="Rp 17.000" 
+              data-img="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp">
+                <img src="/assets/img/menu/32c326c3-6184-4f6b-8286-16646d98e96c_Magic Latte Capp.webp" alt="Es Krim" class="menu-card-img" />
+                <div class="menu-card-overlay">
+                  <span class="menu-name">Es Krim</span>
+                  <span class="menu-price">Rp 17.000</span>
                 </div>
               </div>
             </div>
