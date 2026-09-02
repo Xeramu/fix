@@ -1,0 +1,268 @@
+/* ==================== BOOKING ACARA SECTION ==================== */
+.booking-section {
+  background-color: #fffaec;
+  padding: 40px 20px 60px 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.booking-title {
+  font-family: "Gayathri", sans-serif;
+  font-size: 28px;
+  color: #7a1810;
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+/* Tombol Lihat Katalog Lengkapnya */
+.btn-katalog {
+  width: 100%;
+  max-width: 347px;
+  height: 43px;
+  background-color: #7a1810;
+  color: #ffffff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Gayathri", sans-serif;
+  font-size: 20px;
+  text-decoration: none;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 10px rgba(122, 24, 16, 0.2);
+}
+
+/* Grid Layout Tempat Booking */
+.booking-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+/* Card Tempat Item */
+.booking-card {
+  position: relative;
+  width: 100%;
+  height: 145px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-3px);
+}
+
+.booking-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.booking-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.booking-card-name {
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #000000; /* Warna hitam sesuai desain Figma/Anima */
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Wrapper Chat WhatsApp */
+.booking-chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 347px;
+}
+
+.chat-title {
+  font-family: "Gayathri", sans-serif;
+  font-size: 24px;
+  color: #7a1810;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.btn-wa {
+  width: 100%;
+  height: 49px;
+  background-color: #25d366;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.btn-wa span {
+  font-family: "Gayathri", sans-serif;
+  font-size: 24px;
+  color: #7a1810;
+  font-weight: 600;
+}
+
+
+/* ==================== BOOKING MODAL POPUP ==================== */
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.80);
+  backdrop-filter: blur(3px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.booking-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  background-color: #bc9464;
+  border-radius: 30px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Tombol Close Putih Bulat (Atas Kanan) */
+.booking-modal-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 44px;
+  height: 44px;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Frame Gambar Tempat yang Fleksibel Sesuai Ukuran Asli Foto */
+.booking-modal-img-wrapper {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Gambar Menyesuaikan Ratio Asli (Bisa Landscape / Portrait) */
+.booking-modal-img {
+  width: 100%;
+  height: auto;
+  max-height: 280px; /* Batas tinggi maksimal agar modal tidak kepanjangan */
+  object-fit: contain; /* Menjaga rasio foto asli tanpa terpotong */
+  border-radius: 20px;
+}
+
+/* Modal Body */
+.booking-modal-body {
+  padding: 14px 4px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.booking-modal-desc {
+  font-family: "Gayathri", sans-serif;
+  font-size: 15px;
+  color: #000000;
+  text-align: center;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.booking-modal-subtext {
+  font-family: "Gayathri", sans-serif;
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.3;
+}
+
+/* Social Buttons Container */
+.booking-modal-socials {
+  display: flex;
+  gap: 20px;
+  margin-top: 6px;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: scale(1.1);
+}
+
+.btn-social-wa {
+  background-color: #25d366;
+}
+
+.btn-social-ig {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+/* Animations & Utility */
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.is-hidden {
+  display: none !important;
+}

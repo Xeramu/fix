@@ -1,0 +1,29 @@
+.intro-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.intro-title{
+    font-size: 40px;
+    color: #7a1810;
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    left: 0; /* Sembunyikan sidebar ke kiri (lebar Figma: 287px) */
+    width: 287px;
+    height: 100vh;
+    background-color: #51110b;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+    font-family: "Gayathri", sans-serif;
+    overflow: hidden;
+}
