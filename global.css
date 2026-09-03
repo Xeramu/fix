@@ -42,6 +42,12 @@ a {
   color: inherit;
 }
 
+.logo-rummi {
+  height: 35px;
+  width: auto;
+  object-fit: contain;
+}
+
 .batik-rummi-bg {
   width: 100%;
   /* tinggi batik fix 110 px */
