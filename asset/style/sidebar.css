@@ -5,6 +5,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 2000;
   opacity: 0;
@@ -91,6 +92,8 @@
   padding: 20px 0;
   scrollbar-width: thin;
   scrollbar-color: rgba(188, 148, 100, 0.2) transparent;
+  /* Mencegah lag/glitch saat diswipe di iOS Safari */
+  -webkit-overflow-scrolling: touch; 
 }
 
 .sidebar-body::-webkit-scrollbar {
@@ -183,11 +186,11 @@
 /* 3. SIDEBAR FOOTER (LOGIN) */
 .sidebar-footer {
   border-top: 1px solid rgba(255, 250, 236, 0.1);
-  padding: 10px 0;
-
-  padding-bottom: 16px; 
-
-  padding-bottom: calc(env(safe-area-inset-bottom) + 16px); 
+  padding: 16px 0;
+  
+  /* Memberikan ruang aman ekstra di bagian bawah agar tombol tidak mepet/tertutup */
+  padding-bottom: 40px; 
+  padding-bottom: calc(env(safe-area-inset-bottom) + 32px); 
 }
 
 /* Tambahan CSS untuk Header yang sudah ada */

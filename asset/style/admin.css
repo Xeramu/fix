@@ -27,7 +27,7 @@ body {
 }
 
 .logo-container {
-  width: 80%;
+  /* width: 80%; */
   max-width: 268px;
   height: 60px;
   display: flex;
