@@ -52,7 +52,7 @@ a {
   width: 100%;
   /* tinggi batik fix 110 px */
   height: 110px; 
-  background-image: url('/asset/images/batik-rummi-join_3_new2.png');
+  background-image: url('images/batik-rummi-join_3_new2.png');
   /* gambar diulang untuk screen ukuran tablet, desktop (yang membutuhkan gambar batik lebih banyak) */
   background-repeat: repeat-x;
   background-position: center bottom;
